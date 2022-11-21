@@ -39,3 +39,18 @@ exports.getFilterProduct = (category) =>{
         })
     }) 
 }
+
+
+exports.getProductById = (id) => {
+    console.log("id of product equal : " + id )
+    return new Promise((resolve , reject) => {
+        mongoos.connect(DB_URL) .then(() => {
+            return Products.findById(id)
+        }).then((productRes) => {
+            mongoos.disconnect()
+            resolve(productRes)
+        }).catch(err => { 
+            reject(err)
+        })
+    })
+}
