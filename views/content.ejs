@@ -1,4 +1,22 @@
 
 <%- include('parts/header') %>
-<h1>Hellop World </h1>
+
+<div class="container mt-5">
+
+        <div class="card">
+          <div class="row">
+            <div class="col-sm-6">
+            <img class="card-img-top" src="/images/<%= product.image%>" height="400" alt="Card image cap">
+          </div>
+          <div class="col-sm-6 d-flex align-items-center">
+          <div class="card-body">
+            <h5 class="card-title"><%= product.name%> | category : <%= product.category%> </h5>
+            <h6 class="card-title">Price : <%= product.price%> $</h6>
+            <p class="card-text"><%= product.desc%></p>
+            <a href="#" class="btn btn-primary">Add To Cart</a>
+          </div>
+      </div>
+    </div>
+</div>
+
 <%- include('parts/footer') %>
