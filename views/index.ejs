@@ -1,0 +1,48 @@
+
+<%- include('parts/header') %>
+    <div class="container">
+        <form>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Filter By Categoty</label>
+              <div class="row">
+                <div class="col-md-6">
+                    <select class="form-control" id="exampleFormControlSelect1">
+                            <option value="all">All Product </option>
+                        <% for(let categoty of categories){%>
+                            <option value="<%= categoty.category%>"><%= categoty.category.charAt(0).toUpperCase() + categoty.category.slice(1) %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+              </div>
+        </form>      
+        <div class="row mt-5">
+            <% if(products.length > 0){%>
+            <% for(let product of products){%>
+            <div class="col-md-3 mt-2">
+              <div class="card">
+                <img class="card-img-top" src=" images/<%= product.image %>" height="300" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"> <%=product.name %></h5>
+                  <p class="card-text">Price : <%= product.price%></p>
+                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+             <% }}else{ %>
+                <div class="col-md-3 m-1S">
+                    <div class="card">
+                        <div class="card-body">
+                          <blockquote class="blockquote mb-0">
+                            <p>There are no products </p>
+                          </blockquote>
+                        </div>
+                      </div>
+                  </div>   
+                <%}%>
+          </div>
+    </div>
+
+<%- include('parts/footer') %>
