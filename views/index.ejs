@@ -1,12 +1,12 @@
 
 <%- include('parts/header') %>
     <div class="container">
-        <form>
+        <form action="/" method="get">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Filter By Categoty</label>
               <div class="row">
                 <div class="col-md-6">
-                    <select class="form-control" id="exampleFormControlSelect1">
+                    <select class="form-control" name="category" id="exampleFormControlSelect1">
                             <option value="all">All Product </option>
                         <% for(let categoty of categories){%>
                             <option value="<%= categoty.category%>"><%= categoty.category.charAt(0).toUpperCase() + categoty.category.slice(1) %></option>
@@ -14,7 +14,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
                 </div>
               </div>
         </form>      

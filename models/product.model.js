@@ -25,3 +25,17 @@ exports.getAllProducts = () => {
     })
     
 }
+
+exports.getFilterProduct = (category) =>{
+    console.log(category);
+    return new Promise((resolve , reject) => {
+        mongoos.connect(DB_URL ).then(()=> {
+            return Products.find({category: category})
+        }).then(productsResFilter => {
+                mongoos.disconnect()
+                resolve(productsResFilter)
+        }).catch(err =>{
+            reject(err)
+        })
+    }) 
+}

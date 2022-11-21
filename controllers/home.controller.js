@@ -1,19 +1,31 @@
-const allProducts = require("../models/product.model");
+const productsData = require("../models/product.model");
 
 exports.getHome = (req , res , next ) => {
     //get products 
-    allProducts.getAllProducts().then(products => {
-        const array = products
-        const key = 'category';
 
-        const categoriesArrayUniqe = [...new Map(array.map(item =>
-        [item[key], item])).values()];
-        console.log(categoriesArrayUniqe)
-        res.render('index' , {
-            products : products,
-            categories : categoriesArrayUniqe
-
-        });
-    })
+    let category = req.query.category;
+    if(category && category !== 'all'){
+        productsData.getFilterProduct(category).then(products => {
+            res.render('index' , {
+                products : products,
+                categories : dataUnique(products , 'category')
+            });
+        })
+    }else{
+        productsData.getAllProducts().then(products => {
+            res.render('index' , {
+                products : products,
+                categories : dataUnique(products , 'category')
+            });
+        })
+    }
     //render index . egs
+}
+
+
+const dataUnique = (array , key) => {
+    const ArrayUniqe = [...new Map(array.map(item =>
+        [item[key], item])).values()];
+        console.log(ArrayUniqe)
+        return ArrayUniqe ;
 }
