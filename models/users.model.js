@@ -37,5 +37,25 @@ exports.addUser = (requestName , requestEmail , requestPassword ) =>  {
             reject(err)
         })
     })
+}
 
+exports.userLogin = (email , password ) => {
+    return new Promise((resolve, reject) => {
+        mongoos.connect(DB_URL).then(() => {
+            return Users.findOne({email : email})
+        }).then((userData) => {
+            if(!userData){
+                mongoos.disconnect();
+                reject("please singup and login agine ")
+            }else{
+                return bcrypt.compare(password , userData.password)
+            }
+        }).then((data) => {
+            mongoos.disconnect();
+            resolve(data)
+        }).catch(err => {
+            mongoos.disconnect();
+            reject(err);
+        })
+    })
 }

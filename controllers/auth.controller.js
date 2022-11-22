@@ -21,5 +21,11 @@ exports.getUserLogin = (req , res , next) => {
 }
 
 exports.postUserLogin = (req , res , next) => {
+    let email = req.body.email; 
+    let password = req.body.password; 
+    authUser.userLogin(email , password).then(authUser => {
+        res.send("it work");
+        console.log(authUser)
+    });
     res.render('auth/login');
 }

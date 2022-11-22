@@ -7,7 +7,7 @@ router.get('/login' , authController.getUserLogin);
 
 
 router.post('/signup' ,bodyParserMw, authController.postUserSingUp);
-router.post('/login' , bodyParserMw, authController.getUserLogin);
+router.post('/login' , bodyParserMw, authController.postUserLogin);
 
 module.exports = router
 
