@@ -1,0 +1,31 @@
+<%- include('../parts/header') %>
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-sm-8">
+          <div class="card p-5">
+            <form method="POST" action="/signup">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">User Name </label>
+                    <input type="text" name="username" class="form-control" placeholder="Enter Your Name">
+                    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email"  name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password"  name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" name="password_confirmed" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+          </div>
+        </div>
+      </div>
+</div>
+<%- include('../parts/footer') %>
