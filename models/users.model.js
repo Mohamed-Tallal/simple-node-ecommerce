@@ -17,7 +17,7 @@ exports.addUser = (requestName , requestEmail , requestPassword ) =>  {
             return Users.find({email:requestEmail})
         }).then(usersRes => {
             console.log(usersRes)
-            if(!usersRes) {
+            if(usersRes) {
                 mongoos.disconnect();
                 reject("this user is already exist")
             }else{
