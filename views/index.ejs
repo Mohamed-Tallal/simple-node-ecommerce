@@ -17,7 +17,10 @@
                     <button type="submit" class="btn btn-outline-primary">Search</button>
                 </div>
               </div>
-        </form>      
+        </form>
+        <% if(authError){ %>
+          <p class="alert alert-danger mt-5 text-center"><%= authError %></p>
+        <%}%>      
         <div class="row mt-5">
             <% if(products.length > 0){%>
             <% for(let product of products){%>

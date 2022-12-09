@@ -6,12 +6,16 @@ exports.getHome = (req , res , next ) => {
     console.log("session id data")
     console.log(authData)
     let category = req.query.category;
+    let AuthError = req.flash("loginError")[0];
+    console.log("error login Error")
+    console.log(AuthError);
     if(category && category !== 'all'){
         productsData.getFilterProduct(category).then(products => {
             res.render('index' , {
                 products : products,
                 categories : dataUnique(products , 'category') , 
-                auth : authData
+                auth : authData , 
+                authError : AuthError
             });
         })
     }else{
@@ -19,7 +23,8 @@ exports.getHome = (req , res , next ) => {
             res.render('index' , {
                 products : products,
                 categories : dataUnique(products , 'category'),
-                auth : authData
+                auth : authData , 
+                authError : AuthError
             });
         })
     }
