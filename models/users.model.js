@@ -14,24 +14,25 @@ exports.addUser = (requestName , requestEmail , requestPassword ) =>  {
 
     return new Promise((resolve , reject) => {
         mongoos.connect(DB_URL ).then(() => {
-            return Users.find({email:requestEmail})
+            return Users.findOne({email:requestEmail})
         }).then(usersRes => {
             console.log(usersRes)
-            if(usersRes) {
+            if(usersRes) {            
                 mongoos.disconnect();
                 reject("this user is already exist")
-            }else{
-               const userData = new Users({
-                    name : requestName ,
-                    email : requestEmail,
-                    password : bcrypt.hash(requestPassword, 10) ,
-                })
-                userData.save()
-                return userData;
+        }else{
+                return bcrypt.hash(requestPassword , 10)
             }
-        }).then((userRe) => {
+        }).then((hashPassword)=>{
+                let userData = new Users({
+                     name : requestName ,
+                     email : requestEmail,
+                     password : hashPassword ,
+                 })
+                 return   userData.save()
+        }).then(() => {
             mongoos.disconnect();
-            resolve(userRe)
+            resolve('user create successfully')
         }).catch(err => {
             mongoos.disconnect();
             reject(err)
@@ -41,6 +42,7 @@ exports.addUser = (requestName , requestEmail , requestPassword ) =>  {
 
 exports.userLogin = (email , password ) => {
     return new Promise((resolve, reject) => {
+        const user_id = ''
         mongoos.connect(DB_URL).then(() => {
             return Users.findOne({email : email})
         }).then((userData) => {
@@ -48,14 +50,21 @@ exports.userLogin = (email , password ) => {
                 mongoos.disconnect();
                 reject("please singup and login agine ")
             }else{
-                return bcrypt.compare(password , userData.password)
+                 bcrypt.compare(password , userData.password).then((data) => {
+                    mongoos.disconnect();
+                    if(!data) {
+                        reject("please check your password")
+                    }else{   
+                        resolve(userData._id)
+                    }
+                }).catch(err => {
+                    mongoos.disconnect();
+                    reject(err);
+                })
             }
-        }).then((data) => {
+        }).catch((err) => {
             mongoos.disconnect();
-            resolve(data)
-        }).catch(err => {
-            mongoos.disconnect();
-            reject(err);
+            reject(err)
         })
     })
 }

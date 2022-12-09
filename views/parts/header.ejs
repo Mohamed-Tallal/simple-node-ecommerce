@@ -27,10 +27,8 @@
                     <a class="nav-link" href="/order">orders</a>
                   </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/signup">Signup</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/add">Add Product </a>
@@ -39,6 +37,21 @@
                     <a class="nav-link" href="/admin/orders">Manage Product </a>
                 </li>
               </ul>
+              <div class="form-inline my-2 my-lg-0">
+                <% if(auth) {%>
+                <form action="/logout" method="POST">
+                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">logout</button>
+                </form>
+                <%}else{%>
+                  <div class="ml-1 my-lg-0">
+                    <a class="btn btn-outline-success my-2 my-sm-0 nav-link" href="/login">Login</a>
+                  </div>
+                  <div class="ml-1 my-lg-0">
+                    <a class="btn btn-outline-success my-2 my-sm-0 nav-link" href="/signup">Signup</a>
+                  </div>
+                 <%}%> 
+              </div>
+                        
             </div>
         </div>
     </nav>

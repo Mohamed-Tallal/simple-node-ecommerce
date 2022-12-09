@@ -1,26 +1,41 @@
 <%- include('../parts/header') %>
+<%
+  let usernameError = validatorError.find(err => err.param === 'username' ) 
+  let emailError =  validatorError.find(err => err.param === 'email')
+  let passwordError = validatorError.find(err => err.param === 'password')
+  let passwordConfirmedError = validatorError.find(err => err.param === 'password_confirmed')
+%>
 <div class="container mt-5">
     <div class="row d-flex justify-content-center align-items-center">
         <div class="col-sm-8">
           <div class="card p-5">
+            <% if(authLogin) {%>
+              <p class="alert alert-danger">
+                <%= authLogin %>
+              </p>
+              <br>
+            <%}%>
             <form method="POST" action="/signup">
                 <div class="form-group">
                     <label for="exampleInputEmail1">User Name </label>
-                    <input type="text" name="username" class="form-control" placeholder="Enter Your Name">
-                    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                  </div>
+                    <input type="text" name="username"  <% if(usernameError) {%> class="form-control is-invalid" <%}else{%> class="form-control" <%}%> placeholder="Enter Your Name">
+                    <% if(usernameError) {%> <span class="badge badge-danger"><%= usernameError.msg%></span> <%}%>
+                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email address</label>
-                  <input type="email"  name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                  <input type="email"  name="email" <% if(emailError) {%> class="form-control is-invalid" <%}else{%> class="form-control" <%}%> id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your email">
+                  <% if(emailError) {%> <span class="badge badge-danger"><%= emailError.msg%></span> <%}%>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Password</label>
-                  <input type="password"  name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <input type="password"  name="password" <% if(passwordError) {%> class="form-control is-invalid" <%}else{%> class="form-control" <%}%> id="exampleInputPassword1" placeholder="Password">
+                  <% if(passwordError) {%> <span class="badge badge-danger"><%= passwordError.msg%></span> <%}%>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" name="password_confirmed" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" name="password_confirmed" <% if(passwordConfirmedError) {%> class="form-control is-invalid" <%}else{%> class="form-control" <%}%> id="exampleInputPassword1" placeholder="Password">
+                    <% if(passwordConfirmedError) {%> <span class="badge badge-danger"><%= passwordConfirmedError.msg%></span> <%}%>
+
                   </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>

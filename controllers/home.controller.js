@@ -2,20 +2,24 @@ const productsData = require("../models/product.model");
 
 exports.getHome = (req , res , next ) => {
     //get products 
-
+    let authData = req.session.userId ; 
+    console.log("session id data")
+    console.log(authData)
     let category = req.query.category;
     if(category && category !== 'all'){
         productsData.getFilterProduct(category).then(products => {
             res.render('index' , {
                 products : products,
-                categories : dataUnique(products , 'category')
+                categories : dataUnique(products , 'category') , 
+                auth : authData
             });
         })
     }else{
         productsData.getAllProducts().then(products => {
             res.render('index' , {
                 products : products,
-                categories : dataUnique(products , 'category')
+                categories : dataUnique(products , 'category'),
+                auth : authData
             });
         })
     }
