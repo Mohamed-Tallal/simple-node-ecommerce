@@ -4,6 +4,7 @@ const  path  = require("path");
 const homeRouter = require("./routes/home.router")
 const productRouter = require("./routes/product.router")
 const authRouter = require("./routes/auth.router")
+const cart = require("./routes/cart.router")
 const session = require('express-session');
 const SessionStore = require('connect-mongodb-session')(session);
 const falsh = require('connect-flash'); 
@@ -34,7 +35,7 @@ app.set('views', 'views'); // default name
 app.use(homeRouter);
 app.use(productRouter)
 app.use(authRouter)
-
-app.listen(3000 , () => {
+app.use(cart)
+app.listen(3030 , () => {
     console.log("server is listen in port 3000")
 })

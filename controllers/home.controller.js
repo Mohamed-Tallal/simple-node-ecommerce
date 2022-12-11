@@ -6,16 +6,26 @@ exports.getHome = (req , res , next ) => {
     console.log("session id data")
     console.log(authData)
     let category = req.query.category;
-    let AuthError = req.flash("loginError")[0];
-    console.log("error login Error")
+    /**
+     console.log("error login Error")
     console.log(AuthError);
+    console.log("cart res: " , req.flash("addCart")[0]);
+    console.log("cart res: " , req.flash("errorCart")[0]);
+     */
+
+    let AuthError = req.flash("loginError")[0];
+    let AddCart = req.flash("addCart") [0] ;
+    let ErrorCart = req.flash("errorCart") [0] ;
+    
     if(category && category !== 'all'){
         productsData.getFilterProduct(category).then(products => {
             res.render('index' , {
                 products : products,
                 categories : dataUnique(products , 'category') , 
                 auth : authData , 
-                authError : AuthError
+                authError : AuthError, 
+                addCart : AddCart ,
+                errorCart : ErrorCart
             });
         })
     }else{
@@ -24,11 +34,12 @@ exports.getHome = (req , res , next ) => {
                 products : products,
                 categories : dataUnique(products , 'category'),
                 auth : authData , 
-                authError : AuthError
+                authError : AuthError,
+                addCart : AddCart ,
+                errorCart : ErrorCart
             });
         })
     }
-    //render index . egs
 }
 
 
