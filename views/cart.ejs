@@ -1,13 +1,26 @@
 <%- include('parts/header') %>
 
 <div class="container mt-5">
+    
+    <% if(SuccesDeleteProduct != ''){ %>
+        <p class="alert alert-success text-center">
+            <%= SuccesDeleteProduct %>
+        </p>
+    <%}%>
+
+    <% if(ErrorDeleteProduct != ''){ %>
+        <p class="alert alert-danger text-center">
+            <%= ErrorDeleteProduct %>
+        </p>
+    <%}%>
+    <% if(cartData.length > 0){ %>
     <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Price</th>
             <th scope="col">Amount</th>
+            <th scope="col">Price</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -16,18 +29,27 @@
           <tr>
             <th scope="row"><%= i %></th>
             <td><a href="/product/<%=cartData[i].productId%>"><%= cartData[i].name%></a></td>
-            <td><%= cartData[i].price%></td>
-            <td><input type="number" class="form-control" style="width: 200px;" min="0" name="amount" value="<%= cartData[i].amount%>"></td>
+            <form method="post">
+            <td><input type="number" class="form-control" style="width: 200px;" min="1" name="amount" value="<%= cartData[i].amount%>"></td>
+            <td><%= cartData[i].price * cartData[i].amount + ' $'%></td>
             <td>
-                <form method="post">
-                    <button type="submit" class="btn btn-primary" formaction="/cart/<%= cartData[i].id %>/update/<%= cartData[i].productId %>">Update </button> 
-                    <button type="submit" class="btn btn-danger" formaction="/cart/<%= cartData[i].id %>/destroy/<%= cartData[i].productId %>">Danger</button>
-                </form>
+                <button type="submit" class="btn btn-primary" formaction="/cart/<%= cartData[i].id %>/update/%>">Update </button> 
+                <button type="submit" class="btn btn-danger" formaction="/cart/<%= cartData[i].id %>/destroy">Delete</button>
             </td>
+            </form>
           </tr>
           <%}%>
         </tbody>
       </table>
+      <form method="POST"> 
+        <button type="submit" class="btn btn-danger" formaction="/cart/destroy/all/"> Delete All Product</button>
+        <button type="submit" class="btn btn-primary" formaction="/cart/checkout/"> Check Out </button>
+      </form>
+    <% } else{ %>
+        <p class="text-center">
+            There are no product in cart
+        </p>
+     <%}%>   
 </div>
 
 <%- include('parts/footer') %>
